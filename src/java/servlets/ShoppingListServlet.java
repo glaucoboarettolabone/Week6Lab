@@ -40,7 +40,6 @@ public class ShoppingListServlet extends HttpServlet {
         } else {
             getServletContext().getRequestDispatcher("/WEB-INF/shoppingList.jsp").forward(request, response);            
         }
-
     }
 
     @Override
@@ -64,9 +63,7 @@ public class ShoppingListServlet extends HttpServlet {
             case DELETE:
                 deleteItem(request, response);
                 break;
-        }
-            
-        
+        }        
     }
     
     private void register(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -117,12 +114,6 @@ public class ShoppingListServlet extends HttpServlet {
         ArrayList<String> list;
 
         HttpSession session = request.getSession();
-
-        String deleteItem = request.getParameter("deleteitem");                
-        if (deleteItem == null || deleteItem.equals("")) {
-            getServletContext().getRequestDispatcher("/WEB-INF/shoppingList.jsp").forward(request, response);
-            return;
-        }
         
         Object objList = (Object) session.getAttribute("list");        
         if (objList == null) {
@@ -131,9 +122,8 @@ public class ShoppingListServlet extends HttpServlet {
         }
         
         list = (ArrayList<String>) objList;
-        
+        String deleteItem = request.getParameter("itemselected"); 
         list.remove(deleteItem);
-
         session.setAttribute("list", list);
         getServletContext().getRequestDispatcher("/WEB-INF/shoppingList.jsp").forward(request, response);
     }

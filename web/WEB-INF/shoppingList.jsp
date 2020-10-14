@@ -23,6 +23,15 @@
             <b>Add item </b><input type="text" name="item"> <input type="submit" value="Add">
             <input type="hidden" name="action" value="add">
         </form>
+        <form method="post" action="">
+            <c:forEach var="item" items="${list}">
+                <li><input type="radio" name="itemselected" value="${item}">${item}</li>
+            </c:forEach>
+            <c:if test="${list.size() gt 0}">
+                <input type="submit" value="Delete">
+                <input type="hidden" name="action" value="delete">
+            </c:if>
+        </form>
         <c:if test="${error == true}">
             <p>Item cannot be empty.</p>
         </c:if>
